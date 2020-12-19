@@ -1,21 +1,24 @@
 
-
+# create parent class
 class Vacation():
     season = "Unknown"
     weather = "Good"
     activity = "Unknown"
     budget = 2500
 
+    # define function for parent class
     def vacaType(self):
         self.season = season
         self.activity = activity
 
+# create child class
 class Summer(Vacation):
     season = 'Summer'
     activity = 'Swimming'
     destination = 'Florida'
     transportation = 'Airplane'
 
+    # use polymorphism to add to the function from parent class
     def vacaType(self):
         
         if (self.season == 'Summer' and self.activity == 'Swimming'):
@@ -23,7 +26,7 @@ class Summer(Vacation):
         else:
             print("Are you enjoying your staycation?")
     
-
+# create another child class
 class Winter(Vacation):
    
     season = 'Winter'
@@ -31,6 +34,7 @@ class Winter(Vacation):
     clothing = 'Heavy'
     equipment = 'skis'
 
+    # use polymorphism to add to the function from parent class to update second child class
     def vacaType(self):
         
         
@@ -39,6 +43,8 @@ class Winter(Vacation):
             print("Are you going to spend your vacation on  " + self.equipment + " this year?")
         else:
             print("Are you enjoying your staycation?")
+
+# create variable object to access and call function for desired output
 vaca = Winter()
 vaca.vacaType()
                 
