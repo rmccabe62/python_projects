@@ -1,7 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from . import views
 from .forms import ProductForm
 from .models import Product
+
 
 def admin_console(request):
     products = Product.objects.all()
@@ -21,3 +23,12 @@ def details(request, pk):
             print(form.errors)
     else:
         return render(request, 'products/present_product.html', {'form': form})
+
+def delete(request, pk):
+    pk = int(pk)
+    item = get_object_or_404(Product, pk=pk)
+    if request.method == 'POST':
+        item.delete()
+        return redirect('admin_console')
+    context = ("item": item,)
+    return render(request, "products/confirmDelete.html", context)

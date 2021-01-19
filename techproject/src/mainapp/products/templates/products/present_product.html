@@ -7,7 +7,7 @@
 
 
 <div class="admin_panel">
-    <form name="productForm" method="POST" action="../details/">
+    <form id="thisForm" method="POST" action="../details/">
         <table>
             {% csrf_token %}
             {{ form.non_field_errors }}
@@ -16,11 +16,11 @@
         </table>
         <div class="frmBtn_container">
             <input type="submit">
-            <ul>
-                <li><a href="../{{ form.pk }}delete/">DELETE</a></li>
-                <li><a href="{% url 'admin_console' %}"><button class="btn">CANCEL</button></a></li>
+            <div class="frmBtn_container">
+                <a href="../{{ form.pk }}delete/"><button class="btn">DELETE</button></a>
+                <a href="{% url 'admin_console' %}"><button class="btn">CANCEL</button></a>
 
-            </ul>
+            </div>
 
 
 
