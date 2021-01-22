@@ -1,6 +1,6 @@
 import shutil
 import os
-import datetime as dt
+import datetime 
 import tkinter
 from tkinter import *
 from tkinter import filedialog
@@ -31,7 +31,7 @@ class ParentWindow(Frame):
         self.btnBrowse2 = Button(self.master, text="Browse...", command=self.browseFile2)
         self.btnBrowse2.grid(row=3, column=0, padx=(10,0), pady=(10,0))
 
-        self.btnCheckFiles = Button(self.master, text="Check for Files...", height=2)
+        self.btnCheckFiles = Button(self.master, text="Check for Files...", height=2, command=self.checkFiles)
         self.btnCheckFiles.grid(row=4, column=0, padx=(25,0), pady=(10,0))
         self.btnCloseProgram = Button(self.master, text="Close Program", height=2)
         self.btnCloseProgram.grid(row=4, column=2, padx=(350,0), pady=(10,0))
@@ -44,52 +44,26 @@ class ParentWindow(Frame):
         filePath2 = filedialog.askdirectory()
         self.varFileName2.set(filePath2)
 
+    def checkFiles(self):
+        now = datetime.datetime.now()
+        ago = now-datetime.timedelta(hours=24)
 
-    source = 'C:/Users/rmcca/OneDrive/Documents/GitHub/python_projects/newFiles/'
+        source = self.txtFileName1.get()
+        destination = self.txtFileName2.get()
 
-    # get the files that have been modified in the last 24 hours
-    now = dt.datetime.now()
-    ago = now-dt.timedelta(hours=24)
-
-    for root, dirs,files in os.walk('.'):
+        files = os.listdir(source)
         for fname in files:
-            path = os.path.join(root, fname)
-            st = os.stat(path)
-            mtime = dt.datetime.fromtimestamp(st.st_mtime)
-            if mtime > ago:
-                print('%s modified %s'%(path, mtime))
-                
-    # set the destination pathy to the modified files
-    destination = 'C:/Users/rmcca/OneDrive/Documents/GitHub/python_projects/updatedFiles/'
-    files = os.listdir(source)
+            path = os.path.join(source, fname)
+            mtime = os.path.getmtime(path)
+            timeOfFile = datetime.datetime.fromtimestamp(mtime)
+            if timeOfFile > ago:
+                print('%s modified %s'%(path, timeOfFile))
 
-    for i in files:
-        #move the files represented by i to the destination folder
-        shutil.move(source+i, destination)
+                shutil.move(path, destination)
+        
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   
 
 
 
